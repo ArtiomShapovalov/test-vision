@@ -68,14 +68,14 @@ struct ContentView: View {
     let configuration = MLModelConfiguration()
     
     do {
-      let model = try YOLOv3(configuration: configuration).model
+//      let model = try YOLOv3(configuration: configuration).model
 //      let model = try YOLOv3FP16(configuration: configuration).model
 //      let model = try YOLOv3Int8LUT(configuration: configuration).model
 //      let model = try Mobilenet(configuration: configuration).model
-      let visionModel = try VNCoreMLModel(for: model)
-      print(visionModel)
-
-      request = VNCoreMLRequest(model: visionModel, completionHandler: visionRequestDidComplete)
+//      let visionModel = try VNCoreMLModel(for: model)
+//      print(visionModel)
+//
+//      request = VNCoreMLRequest(model: visionModel, completionHandler: visionRequestDidComplete)
   //    request?.imageCropAndScaleOption = .centerCrop
     } catch {
       print(error)
