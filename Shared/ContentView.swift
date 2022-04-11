@@ -13,51 +13,15 @@ var request: VNCoreMLRequest? = nil
 var ts: Float64 = 0
 
 var mdh = ModelDataHandler()
+let sampleProcessor = SampleProcessor()
 
 struct ContentView: View {
   init() {
 //    setupVNRequest()
     
-    let url = Bundle.main.url(forResource: "test", withExtension: "mp4")!
-    let asset = AVAsset(url: url)
-    var assetReader: AVAssetReader
-
-    do {
-      assetReader = try AVAssetReader(asset: asset)
-    } catch {
-      fatalError("Unable to read Asset: \(error).")
-    }
-    
-    let track = asset.tracks(withMediaType: AVMediaType.video).first
-    
-    let videoReaderSettings: [String:Any] =  [
-      kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32ARGB
-    ]
-    
-    let output = AVAssetReaderTrackOutput(
-      track: track!, outputSettings: videoReaderSettings
-    )
-    
-    assetReader.add(output)
-    assetReader.startReading()
-    
     let d = Date()
     
-    while assetReader.status == .reading {
-      if let sampleBuffer = output.copyNextSampleBuffer() {
-        let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-        let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
-        ts = CMTimeGetSeconds(timestamp)
-//        if let buf = pixelBuffer, let req = request {
-//          let handler = VNImageRequestHandler(cvPixelBuffer: buf)
-//          try? handler.perform([req])
-//        }
-        
-        if let buf = pixelBuffer {
-          mdh?.runModel(onFrame: buf)
-        }
-      }
-    }
+    sampleProcessor.startProcessing()
     
     let elapsed = Date().timeIntervalSince(d)
     

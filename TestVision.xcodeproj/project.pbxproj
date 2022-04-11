@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		2839907C9F9D62E0A3F630EF /* Pods_TestVision__macOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46550081ECF98AC511F4BF8F /* Pods_TestVision__macOS_.framework */; };
 		3AC0EF0827FF1F79005C45C6 /* ModelDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC0EF0727FF1F79005C45C6 /* ModelDataHandler.swift */; };
-		3AC0EF0A27FF2720005C45C6 /* detection_default.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0EF0927FF2720005C45C6 /* detection_default.tflite */; };
-		3AC0EF0D28002322005C45C6 /* detect.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0EF0C28002322005C45C6 /* detect.tflite */; };
 		3AC0EF1328004602005C45C6 /* labelmap.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0EF1228004602005C45C6 /* labelmap.txt */; };
 		3AC5CD6B27FC5A3F009F4535 /* TestVisionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC5CD5B27FC5A3E009F4535 /* TestVisionApp.swift */; };
 		3AC5CD6C27FC5A3F009F4535 /* TestVisionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC5CD5B27FC5A3E009F4535 /* TestVisionApp.swift */; };
@@ -18,6 +16,9 @@
 		3AC5CD6E27FC5A3F009F4535 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC5CD5C27FC5A3E009F4535 /* ContentView.swift */; };
 		3AC5CD6F27FC5A3F009F4535 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AC5CD5D27FC5A3F009F4535 /* Assets.xcassets */; };
 		3AC5CD7027FC5A3F009F4535 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AC5CD5D27FC5A3F009F4535 /* Assets.xcassets */; };
+		3AF6D7AA280417F9004017C2 /* detection_default.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 3AF6D7A9280417F9004017C2 /* detection_default.tflite */; };
+		3AF6D7AD28045E94004017C2 /* ClassificationResultsSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF6D7AC28045E94004017C2 /* ClassificationResultsSubject.swift */; };
+		3AF6D7AF28046B2A004017C2 /* SampleProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF6D7AE28046B2A004017C2 /* SampleProcessor.swift */; };
 		3AF9A4B527FC677B00111058 /* test.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3AF9A4B427FC670C00111058 /* test.mp4 */; };
 		3AF9A4B627FC677C00111058 /* test.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3AF9A4B427FC670C00111058 /* test.mp4 */; };
 		920DF6A306484B01C077106D /* Pods_TestVision__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F017E3ED75FE0ED68D2C44CF /* Pods_TestVision__iOS_.framework */; };
@@ -26,8 +27,6 @@
 /* Begin PBXFileReference section */
 		370D005717AF73C6E249169C /* Pods-TestVision (macOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVision (macOS).release.xcconfig"; path = "Target Support Files/Pods-TestVision (macOS)/Pods-TestVision (macOS).release.xcconfig"; sourceTree = "<group>"; };
 		3AC0EF0727FF1F79005C45C6 /* ModelDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDataHandler.swift; sourceTree = "<group>"; };
-		3AC0EF0927FF2720005C45C6 /* detection_default.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = detection_default.tflite; sourceTree = "<group>"; };
-		3AC0EF0C28002322005C45C6 /* detect.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = detect.tflite; sourceTree = "<group>"; };
 		3AC0EF1228004602005C45C6 /* labelmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = labelmap.txt; sourceTree = "<group>"; };
 		3AC5CD5B27FC5A3E009F4535 /* TestVisionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVisionApp.swift; sourceTree = "<group>"; };
 		3AC5CD5C27FC5A3E009F4535 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -35,6 +34,9 @@
 		3AC5CD6227FC5A3F009F4535 /* TestVision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AC5CD6827FC5A3F009F4535 /* TestVision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AC5CD6A27FC5A3F009F4535 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		3AF6D7A9280417F9004017C2 /* detection_default.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = detection_default.tflite; sourceTree = "<group>"; };
+		3AF6D7AC28045E94004017C2 /* ClassificationResultsSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationResultsSubject.swift; sourceTree = "<group>"; };
+		3AF6D7AE28046B2A004017C2 /* SampleProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleProcessor.swift; sourceTree = "<group>"; };
 		3AF9A4B427FC670C00111058 /* test.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.mp4; sourceTree = "<group>"; };
 		46550081ECF98AC511F4BF8F /* Pods_TestVision__macOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestVision__macOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69317234DF671BCC4ABE7F72 /* Pods-TestVision (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVision (iOS).debug.xcconfig"; path = "Target Support Files/Pods-TestVision (iOS)/Pods-TestVision (iOS).debug.xcconfig"; sourceTree = "<group>"; };
@@ -79,11 +81,12 @@
 			children = (
 				3AC5CD5B27FC5A3E009F4535 /* TestVisionApp.swift */,
 				3AC5CD5C27FC5A3E009F4535 /* ContentView.swift */,
+				3AF6D7AE28046B2A004017C2 /* SampleProcessor.swift */,
 				3AC0EF0727FF1F79005C45C6 /* ModelDataHandler.swift */,
+				3AF6D7AC28045E94004017C2 /* ClassificationResultsSubject.swift */,
 				3AF9A4B427FC670C00111058 /* test.mp4 */,
+				3AF6D7A9280417F9004017C2 /* detection_default.tflite */,
 				3AC0EF1228004602005C45C6 /* labelmap.txt */,
-				3AC0EF0927FF2720005C45C6 /* detection_default.tflite */,
-				3AC0EF0C28002322005C45C6 /* detect.tflite */,
 				3AC5CD5D27FC5A3F009F4535 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -207,9 +210,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AC0EF0D28002322005C45C6 /* detect.tflite in Resources */,
+				3AF6D7AA280417F9004017C2 /* detection_default.tflite in Resources */,
 				3AC5CD6F27FC5A3F009F4535 /* Assets.xcassets in Resources */,
-				3AC0EF0A27FF2720005C45C6 /* detection_default.tflite in Resources */,
 				3AF9A4B527FC677B00111058 /* test.mp4 in Resources */,
 				3AC0EF1328004602005C45C6 /* labelmap.txt in Resources */,
 			);
@@ -281,6 +283,8 @@
 				3AC5CD6D27FC5A3F009F4535 /* ContentView.swift in Sources */,
 				3AC5CD6B27FC5A3F009F4535 /* TestVisionApp.swift in Sources */,
 				3AC0EF0827FF1F79005C45C6 /* ModelDataHandler.swift in Sources */,
+				3AF6D7AD28045E94004017C2 /* ClassificationResultsSubject.swift in Sources */,
+				3AF6D7AF28046B2A004017C2 /* SampleProcessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

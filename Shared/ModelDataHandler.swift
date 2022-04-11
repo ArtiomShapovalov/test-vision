@@ -49,8 +49,8 @@ class ModelDataHandler: NSObject {
   // MARK: Model parameters
   let batchSize = 1
   let inputChannels = 3
-  let inputWidth = 448
-  let inputHeight = 448
+  let inputWidth = 224
+  let inputHeight = 224
 
   // image mean and std for floating model, should be consistent with parameters used in model training
   let imageMean: Float = 127.5
