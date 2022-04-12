@@ -8,24 +8,34 @@
 import SwiftUI
 import Vision
 import AVFoundation
+import Combine
+import SoundAnalysis
 
 var request: VNCoreMLRequest? = nil
-var ts: Float64 = 0
+//var ts: Float64 = 0
+var ts: CMTime = CMTime()
 
 var mdh = ModelDataHandler()
-let sampleProcessor = SampleProcessor()
+
+var detectionCancellable: AnyCancellable? = nil
 
 struct ContentView: View {
+  
   init() {
 //    setupVNRequest()
+//    startAudioSession()
     
-    let d = Date()
-    
-    sampleProcessor.startProcessing()
-    
-    let elapsed = Date().timeIntervalSince(d)
-    
-    print("Finished in \(Int(elapsed.rounded())) seconds")
+//    let classificationSubject = PassthroughSubject<SNClassificationResult, Error>()
+//
+//    detectionCancellable =
+//    classificationSubject
+//      .receive(on: DispatchQueue.main)
+//      .sink(
+//        receiveCompletion: { _ in },
+//        receiveValue: {
+//          print($0)
+//        }
+//      )
   }
   
   private func setupVNRequest() {
@@ -60,7 +70,23 @@ struct ContentView: View {
     }
   }
   
+  private func startAudioSession() {
+    let audioSession = AVAudioSession.sharedInstance()
+    try? audioSession.setCategory(.record, mode: .default)
+    try? audioSession.setActive(true)
+  }
+  
   var body: some View {
-    Text("Performing vision...").padding()
+    Text("Performing vision...")
+      .padding()
+      .onAppear {
+        let d = Date()
+        
+        SampleProcessor.shared.startProcessing()
+        
+        let elapsed = Date().timeIntervalSince(d)
+        
+        print("Finished in \(Int(elapsed.rounded())) seconds")
+      }
   }
 }

@@ -26,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		370D005717AF73C6E249169C /* Pods-TestVision (macOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVision (macOS).release.xcconfig"; path = "Target Support Files/Pods-TestVision (macOS)/Pods-TestVision (macOS).release.xcconfig"; sourceTree = "<group>"; };
+		3AC039DC2805B6BA00C16A00 /* TestVision--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "TestVision--iOS--Info.plist"; sourceTree = "<group>"; };
 		3AC0EF0727FF1F79005C45C6 /* ModelDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDataHandler.swift; sourceTree = "<group>"; };
 		3AC0EF1228004602005C45C6 /* labelmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = labelmap.txt; sourceTree = "<group>"; };
 		3AC5CD5B27FC5A3E009F4535 /* TestVisionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVisionApp.swift; sourceTree = "<group>"; };
@@ -68,6 +69,7 @@
 		3AC5CD5527FC5A3E009F4535 = {
 			isa = PBXGroup;
 			children = (
+				3AC039DC2805B6BA00C16A00 /* TestVision--iOS--Info.plist */,
 				3AC5CD5A27FC5A3E009F4535 /* Shared */,
 				3AC5CD6927FC5A3F009F4535 /* macOS */,
 				3AC5CD6327FC5A3F009F4535 /* Products */,
@@ -420,6 +422,7 @@
 				DEVELOPMENT_TEAM = FD6ZML48V9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TestVision--iOS--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -451,6 +454,7 @@
 				DEVELOPMENT_TEAM = FD6ZML48V9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TestVision--iOS--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
