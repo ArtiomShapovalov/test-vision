@@ -9,24 +9,15 @@ import AVFoundation
 import Combine
 import SoundAnalysis
 
-class SampleProcessor: NSObject, SNResultsObserving {
+class SampleProcessor: NSObject {
   static let shared = SampleProcessor()
-  func request(_ request: SNRequest, didProduce result: SNResult) {
-    print("AAAAAAAAAAAAAAAAA!!!!!!")
-  }
   
   private var assetReader: AVAssetReader
   private let videoOutput: AVAssetReaderTrackOutput
   private let audioOutput: AVAssetReaderTrackOutput
   
   private var analyzer: SNAudioStreamAnalyzer?
-  private var retainedObservers: [SNResultsObserving]?
-  var soundDetectionIsRunning: Bool = false
-  private let analysisQueue = DispatchQueue(
-    label: "com.anjlab.TestVision.AnalysisQueue"
-  )
   private var sampleNum = 0.0
-  private var numSamples = 0
   private var avFmt = AVAudioFormat(
     commonFormat: .pcmFormatFloat32,
     sampleRate: 44_100,
@@ -35,6 +26,7 @@ class SampleProcessor: NSObject, SNResultsObserving {
   )
   
   private let observer = AudioAnalysisObserver()
+  private var ts = CMTime()
   
   // MARK: - Configure AVAssetReader
   
@@ -109,7 +101,6 @@ class SampleProcessor: NSObject, SNResultsObserving {
       }
       
       analyzer = nil
-      retainedObservers = nil
       assetReader.cancelReading()
     }
   }
@@ -147,25 +138,23 @@ class SampleProcessor: NSObject, SNResultsObserving {
   }
   
   private func scheduleBuffer(_ sampleBuffer: CMSampleBuffer?) -> AVAudioPCMBuffer? {
-    
     guard let sampleBuffer = sampleBuffer else {
       print("Buf is nil")
       stopProcessing()
       return nil
     }
     
-
-    let sDescr = CMSampleBufferGetFormatDescription(sampleBuffer)
     let t = CMSampleBufferGetDecodeTimeStamp(sampleBuffer)
     
-    if ts.value > t.value {
+    guard ts.value <= t.value else {
+      print("The end of samples")
       stopProcessing()
       return nil
     }
     
     ts = t
     
-    numSamples = CMSampleBufferGetNumSamples(sampleBuffer)
+    let numSamples = CMSampleBufferGetNumSamples(sampleBuffer)
 
     let pcmBuffer = AVAudioPCMBuffer(
       pcmFormat: avFmt,

@@ -12,7 +12,7 @@ import Combine
 import SoundAnalysis
 
 var request: VNCoreMLRequest? = nil
-var mdh = ModelDataHandler()
+var mdh = VideoModelDataHandler()
 
 struct ContentView: View {
   private func setupVNRequest() {

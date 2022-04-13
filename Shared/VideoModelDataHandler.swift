@@ -1,5 +1,5 @@
 //
-//  ModelDataHandler.swift
+//  VideoModelDataHandler.swift
 //  TestVision (iOS)
 //
 //  Created by Artem Shapovalov on 07.04.2022.
@@ -37,7 +37,7 @@ enum MobileNetSSD {
 /// This class handles all data preprocessing and makes calls to run inference on a given frame
 /// by invoking the `Interpreter`. It then formats the inferences obtained and returns the top N
 /// results for a successful inference.
-class ModelDataHandler: NSObject {
+class VideoModelDataHandler: NSObject {
 
   // MARK: - Internal Properties
   /// The current thread count used by the TensorFlow Lite Interpreter.
@@ -80,7 +80,7 @@ class ModelDataHandler: NSObject {
 
   // MARK: - Initialization
 
-  /// A failable initializer for `ModelDataHandler`. A new instance is created if the model and
+  /// A failable initializer for `VideoModelDataHandler`. A new instance is created if the model and
   /// labels files are successfully loaded from the app's main bundle. Default `threadCount` is 1.
   init?(threadCount: Int = 1) {
     let modelFilename = MobileNetSSD.modelInfo.name

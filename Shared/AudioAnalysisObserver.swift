@@ -1,5 +1,5 @@
 //
-//  ClassificationResultsSubject.swift
+//  AudioAnalysisObserver.swift
 //  TestVision (iOS)
 //
 //  Created by Artem Shapovalov on 11.04.2022.
