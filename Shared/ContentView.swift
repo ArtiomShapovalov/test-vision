@@ -12,32 +12,9 @@ import Combine
 import SoundAnalysis
 
 var request: VNCoreMLRequest? = nil
-//var ts: Float64 = 0
-var ts: CMTime = CMTime()
-
 var mdh = ModelDataHandler()
 
-var detectionCancellable: AnyCancellable? = nil
-
 struct ContentView: View {
-  
-  init() {
-//    setupVNRequest()
-//    startAudioSession()
-    
-//    let classificationSubject = PassthroughSubject<SNClassificationResult, Error>()
-//
-//    detectionCancellable =
-//    classificationSubject
-//      .receive(on: DispatchQueue.main)
-//      .sink(
-//        receiveCompletion: { _ in },
-//        receiveValue: {
-//          print($0)
-//        }
-//      )
-  }
-  
   private func setupVNRequest() {
     let configuration = MLModelConfiguration()
     
@@ -80,13 +57,15 @@ struct ContentView: View {
     Text("Performing vision...")
       .padding()
       .onAppear {
-        let d = Date()
-        
-        SampleProcessor.shared.startProcessing()
-        
-        let elapsed = Date().timeIntervalSince(d)
-        
-        print("Finished in \(Int(elapsed.rounded())) seconds")
+        Task {
+          let d = Date()
+
+          SampleProcessor.shared.startProcessing()
+
+          let elapsed = Date().timeIntervalSince(d)
+
+          print("Finished in \(Int(elapsed.rounded())) seconds")
+        }
       }
   }
 }

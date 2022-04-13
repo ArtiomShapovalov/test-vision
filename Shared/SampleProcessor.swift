@@ -26,11 +26,12 @@ class SampleProcessor: NSObject, SNResultsObserving {
     label: "com.anjlab.TestVision.AnalysisQueue"
   )
   private var sampleNum = 0.0
+  private var numSamples = 0
   private var avFmt = AVAudioFormat(
     commonFormat: .pcmFormatFloat32,
-    sampleRate: 1024,
-    interleaved: false,
-    channelLayout: AVAudioChannelLayout(layoutTag: kAudioChannelLayoutTag_Mono)!
+    sampleRate: 44_100,
+    interleaved: true,
+    channelLayout: AVAudioChannelLayout(layoutTag: kAudioChannelLayoutTag_Stereo)!
   )
   
   private let observer = AudioAnalysisObserver()
@@ -58,8 +59,17 @@ class SampleProcessor: NSObject, SNResultsObserving {
       track: videoTrack!, outputSettings: videoReaderSettings
     )
     
+    let audioReaderSettings: [String: Any] = [
+      AVFormatIDKey: kAudioFormatLinearPCM,
+      AVSampleRateKey: 44_100,
+      AVLinearPCMBitDepthKey: 32,
+      AVLinearPCMIsNonInterleaved: false,
+      AVLinearPCMIsFloatKey: true,
+//      AVLinearPCMIsBigEndianKey: false
+    ]
+    
     audioOutput = AVAssetReaderTrackOutput(
-      track: audioTrack!, outputSettings: nil
+      track: audioTrack!, outputSettings: audioReaderSettings
     )
     
     assetReader.add(videoOutput)
@@ -72,22 +82,17 @@ class SampleProcessor: NSObject, SNResultsObserving {
     assetReader.startReading()
     
     do {
-      // ClassificationResultsSubject(subject: subject)
       let request = try SNClassifySoundRequest(classifierIdentifier: .version1)
-//      request.windowDuration = CMTimeMakeWithSeconds(
-//        1.5, preferredTimescale: 48_000
-//      )
-//      request.overlapFactor = 0.9
+      request.windowDuration = CMTimeMakeWithSeconds(
+        1.5, preferredTimescale: 44_100
+      )
+      request.overlapFactor = 0.9
 
       print(avFmt)
       
       analyzer = SNAudioStreamAnalyzer(format: avFmt)
       try analyzer?.add(request, withObserver: observer)
-      
-      while assetReader.status == .reading {
-        try processAudio()
-        sampleNum += 1
-      }
+      try processAudio()
     } catch {
       stopProcessing()
     }
@@ -128,16 +133,17 @@ class SampleProcessor: NSObject, SNResultsObserving {
   // MARK: - Audio processing
   
   private func processAudio() throws {
-    soundDetectionIsRunning = true
     if let buf = scheduleBuffer(audioOutput.copyNextSampleBuffer()) {
-      let when = Double(ts.value) + self.avFmt.sampleRate
-      self.analysisQueue.async {
-        print("buf ", when)
-        self.analyzer?.analyze(
-          buf, atAudioFramePosition: AVAudioFramePosition(when)
-        )
-      }
+      analyzeAudio(buf, sampleNum)
+      try? processAudio()
     }
+  }
+  
+  private func analyzeAudio(_ buf: AVAudioPCMBuffer, _ t: Double) {
+    self.analyzer?.analyze(
+      buf, atAudioFramePosition: AVAudioFramePosition(t)
+    )
+    sampleNum += Double(buf.frameLength)
   }
   
   private func scheduleBuffer(_ sampleBuffer: CMSampleBuffer?) -> AVAudioPCMBuffer? {
@@ -147,22 +153,19 @@ class SampleProcessor: NSObject, SNResultsObserving {
       stopProcessing()
       return nil
     }
+    
 
     let sDescr = CMSampleBufferGetFormatDescription(sampleBuffer)
-    ts = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
-    ts = CMSampleBufferGetDecodeTimeStamp(sampleBuffer)
-//    ts = CMTimeGetSeconds(timestamp)
-//    print("timestamp ====> ", ts)
-//    print(sDescr)
+    let t = CMSampleBufferGetDecodeTimeStamp(sampleBuffer)
     
-    let numSamples = CMSampleBufferGetNumSamples(sampleBuffer)
-
+    if ts.value > t.value {
+      stopProcessing()
+      return nil
+    }
     
-//    let avFmt = AVAudioFormat(cmAudioFormatDescription: sDescr!)
+    ts = t
     
-    
-//    var description = AudioStreamBasicDescription(mSampleRate: 48_000, mFormatID: kAudioFormatLinearPCM, mFormatFlags: 0, mBytesPerPacket: 1, mFramesPerPacket: 1, mBytesPerFrame: 1, mChannelsPerFrame: 1, mBitsPerChannel: 8, mReserved: 0)
-//    let avFmt = AVAudioFormat(streamDescription: &description)
+    numSamples = CMSampleBufferGetNumSamples(sampleBuffer)
 
     let pcmBuffer = AVAudioPCMBuffer(
       pcmFormat: avFmt,
