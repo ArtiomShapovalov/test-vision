@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		2839907C9F9D62E0A3F630EF /* Pods_TestVision__macOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46550081ECF98AC511F4BF8F /* Pods_TestVision__macOS_.framework */; };
+		3A66829F280997550057ACDE /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A66829E280997550057ACDE /* GameState.swift */; };
+		3A6682A1280997C20057ACDE /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6682A0280997C20057ACDE /* AppState.swift */; };
+		3A6682A3280DAAF10057ACDE /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6682A2280DAAF10057ACDE /* Camera.swift */; };
+		3A6682A5280EA72B0057ACDE /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6682A4280EA72B0057ACDE /* FrameView.swift */; };
+		3A6682A7280EAAEF0057ACDE /* ContentView+ML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6682A6280EAAEF0057ACDE /* ContentView+ML.swift */; };
+		3A6682A9280EB5890057ACDE /* Camera+OutputCapturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6682A8280EB5890057ACDE /* Camera+OutputCapturer.swift */; };
+		3A6682AB280EE0250057ACDE /* StickFigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6682AA280EE0250057ACDE /* StickFigure.swift */; };
 		3AC0EF0827FF1F79005C45C6 /* VideoModelDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC0EF0727FF1F79005C45C6 /* VideoModelDataHandler.swift */; };
 		3AC0EF1328004602005C45C6 /* labelmap.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0EF1228004602005C45C6 /* labelmap.txt */; };
 		3AC5CD6B27FC5A3F009F4535 /* TestVisionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC5CD5B27FC5A3E009F4535 /* TestVisionApp.swift */; };
@@ -26,6 +33,13 @@
 
 /* Begin PBXFileReference section */
 		370D005717AF73C6E249169C /* Pods-TestVision (macOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVision (macOS).release.xcconfig"; path = "Target Support Files/Pods-TestVision (macOS)/Pods-TestVision (macOS).release.xcconfig"; sourceTree = "<group>"; };
+		3A66829E280997550057ACDE /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		3A6682A0280997C20057ACDE /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		3A6682A2280DAAF10057ACDE /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		3A6682A4280EA72B0057ACDE /* FrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
+		3A6682A6280EAAEF0057ACDE /* ContentView+ML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+ML.swift"; sourceTree = "<group>"; };
+		3A6682A8280EB5890057ACDE /* Camera+OutputCapturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Camera+OutputCapturer.swift"; sourceTree = "<group>"; };
+		3A6682AA280EE0250057ACDE /* StickFigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickFigure.swift; sourceTree = "<group>"; };
 		3AC039DC2805B6BA00C16A00 /* TestVision--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "TestVision--iOS--Info.plist"; sourceTree = "<group>"; };
 		3AC0EF0727FF1F79005C45C6 /* VideoModelDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModelDataHandler.swift; sourceTree = "<group>"; };
 		3AC0EF1228004602005C45C6 /* labelmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = labelmap.txt; sourceTree = "<group>"; };
@@ -66,6 +80,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A6682AE280EF9850057ACDE /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				3AC5CD5C27FC5A3E009F4535 /* ContentView.swift */,
+				3A6682A6280EAAEF0057ACDE /* ContentView+ML.swift */,
+				3A6682AA280EE0250057ACDE /* StickFigure.swift */,
+				3A6682A4280EA72B0057ACDE /* FrameView.swift */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		3A6682AF280EF9B00057ACDE /* CapturePose */ = {
+			isa = PBXGroup;
+			children = (
+				3A6682A2280DAAF10057ACDE /* Camera.swift */,
+				3A6682A8280EB5890057ACDE /* Camera+OutputCapturer.swift */,
+			);
+			path = CapturePose;
+			sourceTree = "<group>";
+		};
+		3A6682B0280EF9C80057ACDE /* MLExpirements */ = {
+			isa = PBXGroup;
+			children = (
+				3AF6D7AE28046B2A004017C2 /* SampleProcessor.swift */,
+				3AC0EF0727FF1F79005C45C6 /* VideoModelDataHandler.swift */,
+				3AF6D7AC28045E94004017C2 /* AudioAnalysisObserver.swift */,
+			);
+			path = MLExpirements;
+			sourceTree = "<group>";
+		};
 		3AC5CD5527FC5A3E009F4535 = {
 			isa = PBXGroup;
 			children = (
@@ -81,11 +125,12 @@
 		3AC5CD5A27FC5A3E009F4535 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				3A6682B0280EF9C80057ACDE /* MLExpirements */,
+				3A6682AF280EF9B00057ACDE /* CapturePose */,
+				3A6682AE280EF9850057ACDE /* UIComponents */,
+				3A6682A0280997C20057ACDE /* AppState.swift */,
+				3A66829E280997550057ACDE /* GameState.swift */,
 				3AC5CD5B27FC5A3E009F4535 /* TestVisionApp.swift */,
-				3AC5CD5C27FC5A3E009F4535 /* ContentView.swift */,
-				3AF6D7AE28046B2A004017C2 /* SampleProcessor.swift */,
-				3AC0EF0727FF1F79005C45C6 /* VideoModelDataHandler.swift */,
-				3AF6D7AC28045E94004017C2 /* AudioAnalysisObserver.swift */,
 				3AF9A4B427FC670C00111058 /* test.mp4 */,
 				3AF6D7A9280417F9004017C2 /* detection_default.tflite */,
 				3AC0EF1228004602005C45C6 /* labelmap.txt */,
@@ -282,9 +327,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A6682A3280DAAF10057ACDE /* Camera.swift in Sources */,
 				3AC5CD6D27FC5A3F009F4535 /* ContentView.swift in Sources */,
 				3AC5CD6B27FC5A3F009F4535 /* TestVisionApp.swift in Sources */,
+				3A6682A5280EA72B0057ACDE /* FrameView.swift in Sources */,
+				3A6682A1280997C20057ACDE /* AppState.swift in Sources */,
+				3A6682A7280EAAEF0057ACDE /* ContentView+ML.swift in Sources */,
+				3A6682A9280EB5890057ACDE /* Camera+OutputCapturer.swift in Sources */,
 				3AC0EF0827FF1F79005C45C6 /* VideoModelDataHandler.swift in Sources */,
+				3A6682AB280EE0250057ACDE /* StickFigure.swift in Sources */,
+				3A66829F280997550057ACDE /* GameState.swift in Sources */,
 				3AF6D7AD28045E94004017C2 /* AudioAnalysisObserver.swift in Sources */,
 				3AF6D7AF28046B2A004017C2 /* SampleProcessor.swift in Sources */,
 			);

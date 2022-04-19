@@ -1,20 +1,17 @@
 //
-//  ContentView.swift
-//  Shared
+//  ContentView+ML.swift
+//  TestVision (iOS)
 //
-//  Created by Artem Shapovalov on 05.04.2022.
+//  Created by Artem Shapovalov on 19.04.2022.
 //
 
-import SwiftUI
+import Foundation
 import Vision
-import AVFoundation
-import Combine
-import SoundAnalysis
 
 var request: VNCoreMLRequest? = nil
 var mdh = VideoModelDataHandler()
 
-struct ContentView: View {
+extension ContentView {
   private func setupVNRequest() {
     let configuration = MLModelConfiguration()
     
@@ -45,27 +42,5 @@ struct ContentView: View {
 //
 //      print(ts, labels)
     }
-  }
-  
-  private func startAudioSession() {
-    let audioSession = AVAudioSession.sharedInstance()
-    try? audioSession.setCategory(.record, mode: .default)
-    try? audioSession.setActive(true)
-  }
-  
-  var body: some View {
-    Text("Performing vision...")
-      .padding()
-      .onAppear {
-        Task {
-          let d = Date()
-
-          SampleProcessor.shared.startProcessing()
-
-          let elapsed = Date().timeIntervalSince(d)
-
-          print("Finished in \(Int(elapsed.rounded())) seconds")
-        }
-      }
   }
 }
