@@ -11,10 +11,14 @@ import Combine
 import SoundAnalysis
 
 struct ContentView: View {
+  
   var body: some View {
     ZStack {
       FrameView().frame(width: 720, height: 1280)
-      StickFigure(size: CGSize(width: 720, height: 1280))
+      
+      RiggedObject().frame(width: 720, height: 1280).opacity(0.9)
+      
+      StickFigure(size: CGSize(width: 720, height: 1280)).allowsHitTesting(false)
     }
     .ignoresSafeArea()
     .onAppear {
