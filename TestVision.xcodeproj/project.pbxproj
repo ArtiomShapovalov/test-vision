@@ -17,6 +17,8 @@
 		3A6682AB280EE0250057ACDE /* StickFigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6682AA280EE0250057ACDE /* StickFigure.swift */; };
 		3A6682B5281043600057ACDE /* testMale.dae in Resources */ = {isa = PBXBuildFile; fileRef = 3A6682B4281043600057ACDE /* testMale.dae */; };
 		3A6682B728104C6E0057ACDE /* RiggedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6682B628104C6E0057ACDE /* RiggedObject.swift */; };
+		3A6682B928114CC60057ACDE /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6682B828114CC60057ACDE /* Math.swift */; };
+		3A6682BB28114E670057ACDE /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6682BA28114E670057ACDE /* InfoView.swift */; };
 		3AC0EF0827FF1F79005C45C6 /* VideoModelDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC0EF0727FF1F79005C45C6 /* VideoModelDataHandler.swift */; };
 		3AC0EF1328004602005C45C6 /* labelmap.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0EF1228004602005C45C6 /* labelmap.txt */; };
 		3AC5CD6B27FC5A3F009F4535 /* TestVisionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC5CD5B27FC5A3E009F4535 /* TestVisionApp.swift */; };
@@ -44,6 +46,8 @@
 		3A6682AA280EE0250057ACDE /* StickFigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickFigure.swift; sourceTree = "<group>"; };
 		3A6682B4281043600057ACDE /* testMale.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = testMale.dae; sourceTree = "<group>"; };
 		3A6682B628104C6E0057ACDE /* RiggedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiggedObject.swift; sourceTree = "<group>"; };
+		3A6682B828114CC60057ACDE /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		3A6682BA28114E670057ACDE /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		3AC039DC2805B6BA00C16A00 /* TestVision--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "TestVision--iOS--Info.plist"; sourceTree = "<group>"; };
 		3AC0EF0727FF1F79005C45C6 /* VideoModelDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModelDataHandler.swift; sourceTree = "<group>"; };
 		3AC0EF1228004602005C45C6 /* labelmap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = labelmap.txt; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 				3A6682AA280EE0250057ACDE /* StickFigure.swift */,
 				3A6682A4280EA72B0057ACDE /* FrameView.swift */,
 				3A6682B628104C6E0057ACDE /* RiggedObject.swift */,
+				3A6682BA28114E670057ACDE /* InfoView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -123,6 +128,14 @@
 			path = Objects;
 			sourceTree = "<group>";
 		};
+		3A6682BC28114FD10057ACDE /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				3A6682B828114CC60057ACDE /* Math.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		3AC5CD5527FC5A3E009F4535 = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +151,7 @@
 		3AC5CD5A27FC5A3E009F4535 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				3A6682BC28114FD10057ACDE /* Utilities */,
 				3A6682B3281043530057ACDE /* Objects */,
 				3A6682B0280EF9C80057ACDE /* MLExpirements */,
 				3A6682AF280EF9B00057ACDE /* CapturePose */,
@@ -345,6 +359,7 @@
 				3A6682A3280DAAF10057ACDE /* Camera.swift in Sources */,
 				3AC5CD6D27FC5A3F009F4535 /* ContentView.swift in Sources */,
 				3AC5CD6B27FC5A3F009F4535 /* TestVisionApp.swift in Sources */,
+				3A6682B928114CC60057ACDE /* Math.swift in Sources */,
 				3A6682B728104C6E0057ACDE /* RiggedObject.swift in Sources */,
 				3A6682A5280EA72B0057ACDE /* FrameView.swift in Sources */,
 				3A6682A1280997C20057ACDE /* AppState.swift in Sources */,
@@ -354,6 +369,7 @@
 				3A6682AB280EE0250057ACDE /* StickFigure.swift in Sources */,
 				3A66829F280997550057ACDE /* GameState.swift in Sources */,
 				3AF6D7AD28045E94004017C2 /* AudioAnalysisObserver.swift in Sources */,
+				3A6682BB28114E670057ACDE /* InfoView.swift in Sources */,
 				3AF6D7AF28046B2A004017C2 /* SampleProcessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

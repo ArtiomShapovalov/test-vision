@@ -24,8 +24,16 @@ extension Camera {
     ) {
       let handler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer)
       let request = VNDetectHumanBodyPoseRequest { req, err in
-        guard let observations =
-                req.results as? [VNHumanBodyPoseObservation] else {
+        guard
+          let observations = req.results as? [VNHumanBodyPoseObservation],
+          !observations.isEmpty
+        else {
+          DispatchQueue.main.async {
+            if self.bodyPoints != [:] {
+              AppState.shared.gameState = .detectingPerson
+              self.bodyPoints = [:]
+            }
+          }
           return
         }
         
@@ -45,6 +53,7 @@ extension Camera {
       }
       
       DispatchQueue.main.async {
+        AppState.shared.gameState = .detectedPerson
         self.bodyPoints = recognizedPoints
       }
     }

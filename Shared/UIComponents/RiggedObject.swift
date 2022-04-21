@@ -21,13 +21,6 @@ struct RiggedObject: View {
         scene: characterScene,
         options: [.autoenablesDefaultLighting, .allowsCameraControl]
       )
-      VStack {
-        Text("Vision: \(visionLocation.str)")
-        Text("Bone: \(boneLocation.str)").padding()
-      }
-      .frame(width: 330, height: 100)
-      .background(Color.blue.opacity(0.5))
-      .offset(x: 0, y: 300)
     }
     .onChange(of: camOutput.bodyPoints) { _ in
       _updateBones()

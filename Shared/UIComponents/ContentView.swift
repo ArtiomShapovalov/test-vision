@@ -11,19 +11,27 @@ import Combine
 import SoundAnalysis
 
 struct ContentView: View {
+  @StateObject var appState = AppState.shared
   
   var body: some View {
     ZStack {
-      FrameView().frame(width: 720, height: 1280)
-      
-      RiggedObject().frame(width: 720, height: 1280).opacity(0.9)
-      
-      StickFigure(size: CGSize(width: 720, height: 1280)).allowsHitTesting(false)
+      GeometryReader { proxy in
+        content(proxy.size)
+          .frame(width: proxy.size.width, height: proxy.size.height)
+      }
     }
     .ignoresSafeArea()
     .onAppear {
       startCaptureSession()
     }
+  }
+  
+  @ViewBuilder
+  private func content(_ psize: CGSize) -> some View {
+    FrameView()
+    RiggedObject().opacity(0.1)
+    StickFigure(size: psize).allowsHitTesting(false)
+    InfoView()
   }
   
   private func startCaptureSession() {
@@ -36,6 +44,7 @@ struct ContentView: View {
       
       DispatchQueue.main.async {
         Camera.shared.configureSession()
+        appState.nextGameState()
       }
     }
   }
