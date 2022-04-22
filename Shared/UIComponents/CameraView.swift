@@ -1,5 +1,5 @@
 //
-//  FrameView.swift
+//  CameraView.swift
 //  TestVision (iOS)
 //
 //  Created by Artem Shapovalov on 19.04.2022.
@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - Display camera preview
 
-struct FrameView: UIViewRepresentable {
+struct CameraView: UIViewRepresentable {
   func makeUIView(context: Context) -> UIView {
     return Camera.shared.preview
   }

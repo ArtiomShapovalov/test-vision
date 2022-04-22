@@ -11,6 +11,7 @@ class AppState: ObservableObject {
   static var shared = AppState()
   
   @Published var gameState: GameState = .inactive
+  @Published var gameMode: GameMode = .model3d
   
   init() {
     
@@ -24,6 +25,15 @@ class AppState: ObservableObject {
       gameState = .detectedPerson
     case .detectedPerson:
       break
+    }
+  }
+  
+  func nextGameMode() {
+    switch gameMode {
+    case .stickFigure:
+      gameMode = .model3d
+    case .model3d:
+      gameMode = .stickFigure
     }
   }
 }

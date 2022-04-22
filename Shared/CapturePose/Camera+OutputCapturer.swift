@@ -31,7 +31,6 @@ extension Camera {
           DispatchQueue.main.async {
             if self.bodyPoints != [:] {
               AppState.shared.gameState = .detectingPerson
-              self.bodyPoints = [:]
             }
           }
           return

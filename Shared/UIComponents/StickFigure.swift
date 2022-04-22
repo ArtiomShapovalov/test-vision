@@ -54,7 +54,7 @@ struct StickFigure: View {
   
   private func mapJoints(for names: [VNHumanBodyPoseObservation.JointName]) -> [CGPoint] {
     return names.compactMap {
-      guard let point = camOutput.bodyPoints[$0], point.confidence > 0 else {
+      guard let point = camOutput.bodyPoints[$0], point.confidence > 0.5 else {
         return nil
       }
       

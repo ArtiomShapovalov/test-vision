@@ -21,14 +21,29 @@ struct InfoView: View {
   @ViewBuilder
   private func displayInfo() -> some View {
     VStack(alignment: .leading) {
-      Text("State: \(appState.gameState.str)")
-      if let v1 = point(.neck), let v2 = point(.root) {
-        Text("Neck to Root distance: \(Math.distance2D(v1, v2))")
+      Text("State: \(appState.gameState.str)").frame(width: 300, alignment: .leading)
+      if
+        appState.gameState == .detectedPerson,
+        let v1 = point(.neck),
+        let v2 = point(.root),
+        let d = Math.distance2D(v1, v2)
+      {
+        if d < 0.105 {
+          Text("Come closer").foregroundColor(.red)
+        } else if d > 0.165 {
+          Text("Step back").foregroundColor(.red)
+        } else {
+          Text("Good!").foregroundColor(.green)
+        }
       } else {
         Text("No human body detected")
       }
     }
-    .background(Color.blue.opacity(0.5).frame(width: 330, height: 100))
+    .background(
+      RoundedRectangle(cornerRadius: 8)
+        .fill(Color.blue.opacity(0.3))
+        .frame(width: 330, height: 100)
+    )
     .frame(width: 330, height: 100)
   }
   

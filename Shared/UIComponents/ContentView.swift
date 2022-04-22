@@ -11,7 +11,9 @@ import Combine
 import SoundAnalysis
 
 struct ContentView: View {
-  @StateObject var appState = AppState.shared
+  @State private var gameMode = GameMode.model3d
+  @State private var useMA = true
+  private let testViewSize = CGSize(width: 1280, height: 720)
   
   var body: some View {
     ZStack {
@@ -28,10 +30,23 @@ struct ContentView: View {
   
   @ViewBuilder
   private func content(_ psize: CGSize) -> some View {
-    FrameView()
-    RiggedObject().opacity(0.1)
-    StickFigure(size: psize).allowsHitTesting(false)
+    if gameMode == .stickFigure {
+      CameraView()
+      StickFigure(size: psize)
+    } else {
+      RiggedObject(useMA: useMA)
+      StickFigure(size: psize).allowsHitTesting(false).opacity(0.3)
+    }
     InfoView()
+    Controls(changeMode: {
+      if gameMode == .model3d {
+        gameMode = .stickFigure
+      } else {
+        gameMode = .model3d
+      }
+    }, useMA: {
+      useMA.toggle()
+    })
   }
   
   private func startCaptureSession() {
@@ -44,7 +59,7 @@ struct ContentView: View {
       
       DispatchQueue.main.async {
         Camera.shared.configureSession()
-        appState.nextGameState()
+        AppState.shared.nextGameState()
       }
     }
   }
