@@ -9,6 +9,8 @@ import AVFoundation
 import Combine
 import SoundAnalysis
 
+var mdh = VideoModelDataHandler()
+
 class SampleProcessor: NSObject {
   static let shared = SampleProcessor()
   

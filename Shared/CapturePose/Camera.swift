@@ -46,7 +46,7 @@ class Camera: NSObject {
   
   init(
     deviceType: AVCaptureDevice.DeviceType = .builtInWideAngleCamera,
-    position:   AVCaptureDevice.Position   = .back
+    position:   AVCaptureDevice.Position   = .front
   ) {
     self.deviceType = deviceType
     self.position   = position
