@@ -14,23 +14,28 @@ extension RiggedObject {
     @Published var spinePitch: [CGFloat] = []
     @Published var spineYaw:   [CGFloat] = []
     
-    @Published var leftHandUpperArm: [CGFloat] = []
-    @Published var leftHandForearm:  [CGFloat] = []
-    @Published var leftHandRoll:     [CGFloat] = []
+    @Published var lHandPitchForearm: [CGFloat] = []
+    @Published var lHandYawUpperArm:  [CGFloat] = []
+    @Published var lHandYawForearm:   [CGFloat] = []
+    @Published var lHandRollShoulder: [CGFloat] = []
     
-    @Published var rightHandUpperArm: [CGFloat] = []
-    @Published var rightHandForearm:  [CGFloat] = []
-    @Published var rightHandRoll:     [CGFloat] = []
+    @Published var rHandPitchForearm: [CGFloat] = []
+    @Published var rHandYawUpperArm:  [CGFloat] = []
+    @Published var rHandYawForearm:   [CGFloat] = []
+    @Published var rHandRollShoulder: [CGFloat] = []
     
-    
-    let maxListCopacity = 12
+    // MARK: Accuracy of MA
+    // The amount of data used for the calculation of the MA.
+    // The higher the accuracy, the smoother the animation and the slower the
+    // reaction of the model.
+    let maAccuracy = 12
     
     init() {
       
     }
     
     func append(item: CGFloat, to list: inout [CGFloat]) {
-      if list.count >= maxListCopacity {
+      if list.count >= maAccuracy {
         list.remove(at: 0)
       }
       list.append(item)

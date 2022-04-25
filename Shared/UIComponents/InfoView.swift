@@ -28,13 +28,14 @@ struct InfoView: View {
         let v2 = point(.root),
         let d = Math.distance2D(v1, v2)
       {
-        if d < 0.105 {
+        if d < 0.14 {
           Text("Come closer").foregroundColor(.red)
-        } else if d > 0.165 {
+        } else if d > 0.2 {
           Text("Step back").foregroundColor(.red)
         } else {
           Text("Good!").foregroundColor(.green)
         }
+        Text("\(d)")
       } else {
         Text("No human body detected")
       }

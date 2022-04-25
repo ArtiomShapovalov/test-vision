@@ -34,7 +34,8 @@ struct ContentView: View {
       CameraView()
       StickFigure(size: psize)
     } else {
-      RiggedObject(useMA: useMA)
+      CameraView()
+      RiggedObject(useMA: useMA).opacity(0.9)
       StickFigure(size: psize).allowsHitTesting(false).opacity(0.3)
     }
     InfoView()

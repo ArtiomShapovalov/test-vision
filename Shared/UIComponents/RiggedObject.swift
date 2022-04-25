@@ -48,7 +48,7 @@ struct RiggedObject: View {
     
     var yaw = atan(Math.tanOfLine(neck, root)) - PI / 2
     let dist = Math.distance2D(neck, root)
-    let pitch = (PI / 2) * ((0.15 - dist) / 0.15)
+    let pitch = (PI / 2) * ((0.19 - dist) / 0.19)
     
     if neck.x < root.x {
       yaw *= -1
@@ -77,33 +77,61 @@ struct RiggedObject: View {
   private func updateLeftHand() {
     guard let rootNode = self.rootNode else { return }
     
-    let shoulder = getLocation(for: .leftShoulder)
+    let shoulderR = getLocation(for: .rightShoulder)
+    let shoulderL = getLocation(for: .leftShoulder)
     let forearm = getLocation(for: .leftElbow)
     let hand = getLocation(for: .leftWrist)
     
-    let yawUpperArm = -atan(Math.tanOfLine(shoulder, forearm))
-    let yawForearm = atan(Math.tanOfLine(forearm, hand)) - PI / 2
-    let distUpperArm = Math.distance2D(shoulder, forearm)
+    let distForearm = Math.distance2D(forearm, hand)
+    let distUpperArm = Math.distance2D(shoulderL, forearm)
     
-    var rollUpperArm = (PI / 2) * (distUpperArm / 0.08)
+    var yawUpperArm = -atan(Math.tanOfLine(shoulderL, forearm))
+    var yawForearm = atan(Math.tanOfLine(forearm, hand))
     
-    if shoulder.y > forearm.y {
+    if forearm.y < hand.y {
+      yawForearm -= PI / 1.2
+    } else {
+      yawForearm -= PI / 2
+      yawUpperArm -= PI / 8
+    }
+    
+    var rollUpperArm = (PI / 2) * (distUpperArm / 0.1)
+    
+    let shoulderDiff = max(shoulderR.y - shoulderL.y, 0)
+    let forearmHandDiff = (hand.y - forearm.y)
+    
+    if shoulderL.y > forearm.y + shoulderDiff + forearmHandDiff {
       rollUpperArm *= -1
     }
     
-    jointsManager.append(item: yawUpperArm, to: &jointsManager.leftHandUpperArm)
-    jointsManager.append(item: yawForearm, to: &jointsManager.leftHandForearm)
-    jointsManager.append(item: rollUpperArm, to: &jointsManager.leftHandRoll)
+    var pitchForearm: CGFloat = 0
     
-    let maYawUpperArm = Math.calcMA(for: jointsManager.leftHandUpperArm)
-    let maYawForearm = Math.calcMA(for: jointsManager.leftHandForearm)
-    let maRollUpperArm = Math.calcMA(for: jointsManager.leftHandRoll)
+    if distForearm < 0.04 {
+      pitchForearm = (PI / 2) * (distForearm / 0.08)
+    }
+    
+//    let shoulderDiff = max(shoulderL.y - shoulderR.y, 0)
+//    let forearmHandDiff = (hand.y - forearm.y)
+//
+//    if shoulderR.y < forearm.y + shoulderDiff + forearmHandDiff {
+//      rollUpperArm *= -1
+//    }
+    
+    jointsManager.append(item: yawUpperArm, to: &jointsManager.lHandYawUpperArm)
+    jointsManager.append(item: yawForearm, to: &jointsManager.lHandYawForearm)
+    jointsManager.append(item: rollUpperArm, to: &jointsManager.lHandRollShoulder)
+    jointsManager.append(item: pitchForearm, to: &jointsManager.lHandPitchForearm)
+    
+    let maYawUpperArm = Math.calcMA(for: jointsManager.lHandYawUpperArm)
+    let maYawForearm = Math.calcMA(for: jointsManager.lHandYawForearm)
+    let maRollUpperArm = Math.calcMA(for: jointsManager.lHandRollShoulder)
+    let maPitchForearm = Math.calcMA(for: jointsManager.lHandPitchForearm)
     
     let bones = rootNode.childNodes[5].childNodes[3].skinner?.bones
     
     if !useMA {
       bones?[6].eulerAngles = SCNVector3(0, yawUpperArm, rollUpperArm)
-      bones?[7].eulerAngles = SCNVector3(0, yawForearm, 0)
+      bones?[7].eulerAngles = SCNVector3(pitchForearm, yawForearm, 0)
       return
     }
     
@@ -112,40 +140,68 @@ struct RiggedObject: View {
     }
     
     if !maYawForearm.isNaN {
-      bones?[7].eulerAngles = SCNVector3(0, maYawForearm, 0)
+      bones?[7].eulerAngles = SCNVector3(maPitchForearm, maYawForearm, 0)
     }
   }
   
   private func updateRightHand() {
     guard let rootNode = self.rootNode else { return }
     
-    let shoulder = getLocation(for: .rightShoulder)
+    let shoulderR = getLocation(for: .rightShoulder)
+    let shoulderL = getLocation(for: .leftShoulder)
     let forearm = getLocation(for: .rightElbow)
     let hand = getLocation(for: .rightWrist)
   
-    let yawUpperArm = atan(Math.tanOfLine(shoulder, forearm))
-    let yawForearm = -atan(Math.tanOfLine(forearm, hand)) + PI / 2
-    let distUpperArm = Math.distance2D(shoulder, forearm)
+    let distUpperArm = Math.distance2D(shoulderR, forearm)
+    let distForearm = Math.distance2D(forearm, hand)
     
-    var rollUpperArm = (PI / 2) * (distUpperArm / 0.08)
+    var yawUpperArm = atan(Math.tanOfLine(shoulderR, forearm))
+    var yawForearm = -atan(Math.tanOfLine(forearm, hand))
     
-    if shoulder.y < forearm.y {
+    if forearm.y < hand.y {
+      yawForearm += PI / 1.2
+    } else {
+      yawForearm += PI / 2
+      yawUpperArm += PI / 8
+    }
+    
+    var rollUpperArm = (PI / 2) * (distUpperArm / 0.1)
+    
+    let shoulderDiff = max(shoulderL.y - shoulderR.y, 0)
+    let forearmHandDiff = (hand.y - forearm.y)
+    
+    if shoulderR.y < forearm.y + shoulderDiff + forearmHandDiff {
       rollUpperArm *= -1
     }
     
-    jointsManager.append(item: yawUpperArm, to: &jointsManager.rightHandUpperArm)
-    jointsManager.append(item: yawForearm, to: &jointsManager.rightHandForearm)
-    jointsManager.append(item: rollUpperArm, to: &jointsManager.rightHandRoll)
+    var pitchForearm: CGFloat = 0
     
-    let maYawUpperArm = Math.calcMA(for: jointsManager.rightHandUpperArm)
-    let maYawForearm = Math.calcMA(for: jointsManager.rightHandForearm)
-    let maRollUpperArm = Math.calcMA(for: jointsManager.rightHandRoll)
+    if distForearm < 0.04 {
+      pitchForearm = (PI / 2) * (distForearm / 0.08)
+    }
+    
+    print(distForearm)
+    
+//    print("locations:")
+//    print(shoulderR.y, shoulderL.y)
+//    print(forearm.y, hand.y)
+//    print("res:", forearm.y + shoulderDiff + forearmHandDiff)
+    
+    jointsManager.append(item: yawUpperArm, to: &jointsManager.rHandYawUpperArm)
+    jointsManager.append(item: yawForearm, to: &jointsManager.rHandYawForearm)
+    jointsManager.append(item: rollUpperArm, to: &jointsManager.rHandRollShoulder)
+    jointsManager.append(item: pitchForearm, to: &jointsManager.rHandPitchForearm)
+    
+    let maYawUpperArm = Math.calcMA(for: jointsManager.rHandYawUpperArm)
+    let maYawForearm = Math.calcMA(for: jointsManager.rHandYawForearm)
+    let maRollUpperArm = Math.calcMA(for: jointsManager.rHandRollShoulder)
+    let maPitchForearm = Math.calcMA(for: jointsManager.rHandPitchForearm)
     
     let bones = rootNode.childNodes[5].childNodes[3].skinner?.bones
     
     if !useMA {
       bones?[29].eulerAngles = SCNVector3(0, yawUpperArm, rollUpperArm)
-      bones?[30].eulerAngles = SCNVector3(0, yawForearm, 0)
+      bones?[30].eulerAngles = SCNVector3(pitchForearm, yawForearm, 0)
       return
     }
     
@@ -154,7 +210,7 @@ struct RiggedObject: View {
     }
     
     if !maYawForearm.isNaN {
-      bones?[30].eulerAngles = SCNVector3(0, maYawForearm, 0)
+      bones?[30].eulerAngles = SCNVector3(maPitchForearm, maYawForearm, 0)
     }
   }
   
