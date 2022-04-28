@@ -17,36 +17,44 @@ struct StickFigure: View {
     ZStack {
       // Right leg
       Stick(
-        points: mapJoints(for: [.rightAnkle, .rightKnee, .rightHip,.root]),
+//        points: mapJoints(for: [.rightAnkle, .rightKnee, .rightHip,.root]),
+        points: mapJoints3D(for: ["R_Ankle", "R_Knee", "R_Hip", "Pelvis"]),
         size: size
       )
       .stroke(lineWidth: 5.0)
-      .fill(Color.green)
+      .fill(Color.yellow)
       // Left leg
       Stick(
-        points: mapJoints(for: [.leftAnkle, .leftKnee, .leftHip, .root]),
+//        points: mapJoints(for: [.leftAnkle, .leftKnee, .leftHip, .root]),
+        points: mapJoints3D(for: ["L_Ankle", "L_Knee", "L_Hip", "Pelvis"]),
         size: size
       )
       .stroke(lineWidth: 5.0)
-      .fill(Color.green)
+      .fill(Color.blue)
       // Right arm
       Stick(
-        points: mapJoints(for: [.rightWrist, .rightElbow, .rightShoulder, .neck]),
+//        points: mapJoints(for: [.rightWrist, .rightElbow, .rightShoulder, .neck]),
+        points: mapJoints3D(for: ["R_Wrist", "R_Elbow", "R_Shoulder", "Thorax"]),
         size: size
       )
       .stroke(lineWidth: 5.0)
-      .fill(Color.green)
+      .fill(Color.brown)
       // Left arm
       Stick(
-        points: mapJoints(for: [.leftWrist, .leftElbow, .leftShoulder, .neck]),
+//        points: mapJoints(for: [.leftWrist, .leftElbow, .leftShoulder, .neck]),
+        points: mapJoints3D(for: ["L_Wrist", "L_Elbow", "L_Shoulder", "Thorax"]),
         size: size
       )
       .stroke(lineWidth: 5.0)
       .fill(Color.green)
       // Root to nose
-      Stick(points: mapJoints(for: [.root, .neck, .nose]), size: size)
+      Stick(
+//        points: mapJoints(for: [.root, .neck, .nose]),
+        points: mapJoints3D(for: ["Pelvis", "Thorax", "Head"]),
+        size: size
+      )
       .stroke(lineWidth: 5.0)
-      .fill(Color.green)
+      .fill(Color.red)
     }
   }
   
@@ -63,6 +71,23 @@ struct StickFigure: View {
         y: point.location.y
       )
     }
+  }
+  
+  private func mapJoints3D(for labels: [String]) -> [CGPoint] {
+    return labels.compactMap { label in
+      let jointIndex = PoseNet3D.shared.labels.firstIndex(of: label) ?? 0
+      
+      return CGPoint(
+        x: getBodyPoint3D(jointIndex, 1),
+        y: getBodyPoint3D(jointIndex, 2)
+      )
+    }
+  }
+  
+  private func getBodyPoint3D(_ jointIndex: Int, _ i: Int) -> CGFloat {
+    let j = camOutput.bodyPoints3D[0, jointIndex, i]
+    
+    return CGFloat(j / Float(64))
   }
   
   // MARK: - Stick shape

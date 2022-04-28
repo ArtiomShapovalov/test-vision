@@ -15,14 +15,18 @@ extension Camera {
   class OutputCapturer: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     @MainActor @Published var size: CGSize = .zero
     @MainActor @Published var bodyPoints: VNPoints  = [:]
-
+    @MainActor @Published var bodyPoints3D = MultiArray<Float>(shape: [4, 21, 3])
     
     func captureOutput(
       _ output: AVCaptureOutput,
       didOutput sampleBuffer: CMSampleBuffer,
       from connection: AVCaptureConnection
     ) {
-      let handler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer)
+      detect3D(sampleBuffer)
+    }
+    
+    private func detect2D(_ buf: CMSampleBuffer) {
+      let handler = VNImageRequestHandler(cmSampleBuffer: buf)
       let request = VNDetectHumanBodyPoseRequest { req, err in
         guard
           let observations = req.results as? [VNHumanBodyPoseObservation],
@@ -43,6 +47,43 @@ extension Camera {
         try handler.perform([request])
       } catch {
         print("Unable to perform the request: \(error).")
+      }
+    }
+    
+    private func detect3D(_ buf: CMSampleBuffer) {
+      guard let m = PoseNet3D.shared.model else { return }
+      
+      let request = VNCoreMLRequest(
+        model: m,
+        completionHandler: { request, error in
+          guard let results = request.results as? [VNCoreMLFeatureValueObservation],
+                let topResult = results.first else {
+            print(error as Any)
+            return
+          }
+          
+          guard let v = topResult.featureValue.multiArrayValue else {
+            return
+          }
+          
+          var multiArray = MultiArray<Float>(v)
+          
+          DispatchQueue.main.async {
+            multiArray.id = self.bodyPoints3D.id + 1
+            self.bodyPoints3D = multiArray
+          }
+        }
+      )
+      
+      request.imageCropAndScaleOption = .centerCrop
+
+      let handler = VNImageRequestHandler(cmSampleBuffer: buf, orientation: .up)
+      DispatchQueue.global(qos: .userInteractive).async {
+        do {
+          try handler.perform([request])
+        } catch {
+          print(error)
+        }
       }
     }
     

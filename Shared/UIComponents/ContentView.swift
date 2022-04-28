@@ -11,7 +11,7 @@ import Combine
 import SoundAnalysis
 
 struct ContentView: View {
-  @State private var gameMode = GameMode.model3d
+  @State private var gameMode = GameMode.stickFigure
   @State private var useMA = true
   private let testViewSize = CGSize(width: 1280, height: 720)
   
